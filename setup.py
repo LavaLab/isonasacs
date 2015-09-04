@@ -19,7 +19,7 @@ setup(name='isonasacs',
     author='B2CK',
     author_email='mail@lavalab.com.au',
     description='A module to manage ISONAS Access Control System',
-    long_description=read('README'),
+    long_description=read('README.md'),
     packages=find_packages(),
     classifiers=[
         'Intended Audience :: Developers',
