@@ -110,6 +110,9 @@ class TestTools(unittest.TestCase):
     def test_split_values(self):
         self.assertEqual(split_values('<1><foo><><foo bar><><><>'),
             ['1', 'foo', '', 'foo bar', '', '', ''])
+        self.assertEqual(split_values(
+                '<1><{00000000-0000-0000-0000-000000000000}>'),
+            ['1', '{00000000-0000-0000-0000-000000000000}'])
 
 if __name__ == '__main__':
     unittest.main()
