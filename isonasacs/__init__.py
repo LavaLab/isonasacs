@@ -38,7 +38,7 @@ _DATETIME_RE = re.compile(r"""
     <(?P<hour>\s*\d{1,2}):(?P<minute>\s*\d{1,2}):(?P<second>\s*\d{1,2})>
     (?P<message>.*)""", re.X)
 _TYPE_RE = re.compile(r'<(?P<type>[A-Z ]+)>')
-_VALUES_RE = re.compile(r'<([a-zA-Z0-9_ ]*)>')
+_VALUES_RE = re.compile(r'<([a-zA-Z0-9{}\-_ ]*)>')
 
 NOTIFICATIONS = {'REJECT', 'ADMIT', 'UNAUTHORIZED OPEN', 'TAMPER', 'AUX',
     'REX', 'EXTENDED OPEN', 'CONTROLLER FAILURE', 'LOCKDOWN', 'UNLOCKED',
