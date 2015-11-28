@@ -94,6 +94,14 @@ class TestISONASACS(unittest.TestCase):
         self._telnet.write.assert_called_once_with(
             '<QUERY><IDFILE><1>|')
 
+    def test_query_group(self):
+        self._telnet.read_until.side_effect = [
+            '<GROUP><group><1>|', '<GROUP><group><2>|', '<END GROUP>|']
+        self.assertEqual(self.isonasacs.query('GROUP', 'group'),
+            [['group', '1'], ['group', '2']])
+        self._telnet.write.assert_called_once_with(
+            '<QUERY><GROUP><group>|')
+
 
 class TestTools(unittest.TestCase):
 
