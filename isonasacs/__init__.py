@@ -145,7 +145,7 @@ class Isonasacs(object):
     def query(self, table, *args):
         "Query one record of table"
         self.write_message('QUERY', table, *args)
-        if table == 'GROUP':
+        if table in ['GROUP', 'BADGES']:
             return list(self._read_list(table, 'END %s' % table))
         else:
             response = self.read_response()
