@@ -126,26 +126,31 @@ class Isonasacs(object):
         "Update data from the table"
         self._command('UPDATE', table, *data)
 
-    def query_all(self, table):
-        "Query all records of table"
-        self.write_message('QUERY', 'ALL %s' % table)
-        responses = []
+    def _read_list(self, tag, end):
         while True:
             response = self.read_response()
             if not response:
                 continue
-            if get_type(response) == 'END %s' % table:
-                return responses
+            if get_type(response) == end:
+                break
             else:
-                responses.append(
-                    split_values(response[len('<ALL %s>' % table):-1]))
+                assert response.startswith('<%s>' % tag)
+                yield split_values(response[len('<%s>' % tag):-1])
+
+    def query_all(self, table):
+        "Query all records of table"
+        self.write_message('QUERY', 'ALL %s' % table)
+        return list(self._read_list('ALL %s' % table, 'END %s' % table))
 
     def query(self, table, *args):
         "Query one record of table"
         self.write_message('QUERY', table, *args)
-        response = self.read_response()
-        assert response.startswith('<%s>' % table)
-        return split_values(response[len('<%s>' % table):-1])
+        if table in ['GROUP', 'BADGES']:
+            return list(self._read_list(table, 'END %s' % table))
+        else:
+            response = self.read_response()
+            assert response.startswith('<%s>' % table)
+            return split_values(response[len('<%s>' % table):-1])
 
 
 class IsonasacsError(Exception):
