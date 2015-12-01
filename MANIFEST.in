@@ -1,4 +1,2 @@
 include README.md
-include CHANGELOG
 include INSTALL
-include COPYRIGHT
