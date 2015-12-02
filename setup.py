@@ -20,7 +20,7 @@ setup(name='isonasacs',
     author_email='mail@lavalab.com.au',
     url='https://github.com/LavaLab/isonasacs',
     description='A module to manage ISONAS Access Control System',
-    long_description=read('README.md'),
+    long_description=read('README.rst'),
     packages=find_packages(),
     classifiers=[
         'Intended Audience :: Developers',
