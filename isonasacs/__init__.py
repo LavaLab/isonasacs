@@ -31,6 +31,7 @@ __all__ = ['Isonasacs', 'IsonasacsError']
 
 import datetime
 import re
+import socket
 from telnetlib import Telnet
 
 _DATETIME_RE = re.compile(r"""
@@ -59,12 +60,13 @@ class Isonasacs(object):
     Control System.
     """
 
-    def __init__(self, host, port=7101, _Telnet=Telnet):
+    def __init__(self, host, port=7101, timeout=socket._GLOBAL_DEFAULT_TIMEOUT,
+            _Telnet=Telnet):
         """Constructor
 
         The instance is directly connected.
         """
-        self._telnet = _Telnet(host, port)
+        self._telnet = _Telnet(host, port, timeout=timeout)
         response = self.read_response()
         assert get_type(response) == 'LOGON'
 
